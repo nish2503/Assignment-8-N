@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Form Validation</title>
+	<style>
+       
+        /* Center the form horizontally */
+        #myForm {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 auto;
+          max-width: 400px;
+          border:2px solid rgb(245, 221, 10);
+          border-style: groove;
+        }
+        
+        /* Style form labels and inputs */
+        label {
+          display: inline-block;
+          margin-bottom: 10px;
+        }
+        
+        input {
+          display: inline-block;
+          padding: 8px;
+          border: 2px dotted #2e2e2e;
+          border-radius: 4px;
+          margin-bottom: 20px;
+        }
+        
+        /* Style the terms and conditions checkbox */
+        #termsError {
+          margin-left: 10px;
+        }
+        
+        /* Style the submit button */
+        button[type="submit"] {
+          background-color: #ec417a;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 30px;
+          height: 50px;
+          width: 200px;
+          cursor: pointer;
+          margin-top: 20px;
+          align-self: center;
+        }
+        
+        button[type="submit"]:hover {
+          background-color: #a7437a;
+        }
+        
+        /* Style error messages */
+        #errorMessages {
+          color: #ff0000;
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        
+        #errorMessages p {
+          margin: 5px;
+          display: inline-block;
+        }
+        
+        * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 180vh;
+          background-image: url("https://i.pinimg.com/564x/98/51/c3/9851c357e1d51a24dc0dd547409c57ab.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border: 5px dotted #f9fd09;
+          padding: 20px;
+          border-radius: 10px;
+          background-color: rgba(221, 240, 255, 0.3);
+          width: 800px;
+          border-style: dotted;
+          height: 160vh;
+          margin-top: 40px;
+          margin-bottom: 40px;
+        
+        }
+        
+        label {
+          margin-bottom: 10px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        
+        input,
+        button {
+          font-size: 16px;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-bottom: 15px;
+          width: 100%;
+          max-width: 300px;
+        }
+        
+        button {
+          background-color: #007bff;
+          color: white;
+          cursor: pointer;
+          transition: background-color 0.3s ease-in-out;
+        }
+        
+        button:hover {
+          background-color: #0062cc;
+        }
+        
+        #errorMessages {
+          color: red;
+          margin-bottom: 10px;
+        }
+
+        fieldset{
+            width: 350px;
+            background-image: url("https://i.pinimg.com/564x/87/d2/0a/87d20af7e3e321abe728996c6ea352f0.jpg");
+            align-items: center;
+        }
+       
+
+        h1{
+            font-weight: bolder;
+            font-family: 'Braah One', sans-serif;
+            color: #f5cc15;
+        }
+
+        legend{
+            font-family: 'Francois One', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+           
+            background-color: rgba(213, 106, 240, 0.4);
+            color: #350544;
+            padding: 5px;
+           
+            
+        }
+      
+        label{
+           
+            color: rgb(54, 2, 11); 
+            font-family: 'Roboto Mono', monospace;
+        }
+        .details{
+        width: 100%;
+        background: #ce99ff;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        height: 35px;
+        padding: 5px 15px;
+         color: #d1fff9;
+    align-items: center;
+        } 
+
+         :hover:focus {
+      background: #f1b1e7;
+      color: rgb(16, 55, 100);
+      border: none;
+        }
+        input:hover:focus{
+            color: #052550;
+
+        }
+ 
+        input{
+            text-align: center;
+            height: 20px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        input[type='text']::placeholder
+    {   
+        text-align: center; 
+        color: #6a3b7c;
+    }
+    input[type='checkbox']
+    {   
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+    input[type='password']::placeholder
+    {   
+        text-align: center; 
+        color: #6a3b7c;
+    }
+    h3{
+        color: rgb(167, 12, 51);
+    }
+        </style>
+</head>
+<body>
+    
+	<form name="myForm" onsubmit="return validateForm()"><br>
+       
+        <h1> REGISTRATION FORM </h1><br>
+       <fieldset>
+        <legend>&#128100; FULL NAME </legend><br>
+		<label>FIRST NAME<span style="color:rgb(245, 48, 48)">*</span> :</label>
+		<input class="details" placeholder="Enter first name" type="text" name="firstName" required><br>
+		<span id="nameError"></span><br>
+		
+		<label>LAST NAME<span style="color:rgb(245, 48, 48)">*</span> :</label>
+		<input class="details" placeholder= "Enter last name" type="text" name="lastName" required><br>
+		<span id="nameError"></span><br>
+		</fieldset>
+        <br><br>
+        <fieldset>
+            <legend>&#128241; CONTACT DETAILS </legend><br>
+		<label>PHONE NUMBER<span style="color:rgb(245, 48, 48)">*</span> :</label>
+		<input class="details" placeholder= "Enter phone number" type="text" name="phone" required><br>
+		<span id="phoneError"></span><br>
+		<label>E-MAIL<span style="color:rgb(245, 48, 48)">*</span> :</label><br>
+		<input class="details" placeholder= "Enter e-mail" type="text" name="email" required><br>
+		<span id="emailError"></span><br>
+		</fieldset><br><br>
+        <fieldset>
+            <legend>&#127968; SECURITY DETAILS </legend><br>
+		<label>PASSWORD<span style="color:rgb(245, 48, 48)">*</span> :</label>
+		<input class="details" placeholder= "Enter password" type="password" name="password" required><br>
+		<span id="passwordError"></span><br>
+		</fieldset><br>
+        <div class="align">
+		<br><input type="checkbox" name="terms" required><label><h3>&nbsp; I agree to the given Terms & Conditions.</h3></label>
+		<span id="termsError"></span><br></div>
+		
+        <button type="submit" onclick="validateForm(event)">SUBMIT</button>
+        </fieldset>
+
+	</form>
+    <div id="errorMessages"></div>
+</body>
+    <script>
+		function validateForm() {
+			// Get input values
+			var firstName = document.forms["myForm"]["firstName"].value;
+			var lastName = document.forms["myForm"]["lastName"].value;
+			var phone = document.forms["myForm"]["phone"].value;
+			var email = document.forms["myForm"]["email"].value;
+			var password = document.forms["myForm"]["password"].value;
+			var terms = document.forms["myForm"]["terms"].checked;
+			
+			// Check if first and last name are not empty
+			if (firstName == "" || lastName == "") {
+				document.getElementById("nameError").innerHTML = "Name cannot be empty";
+				return false;
+			}
+			
+			// Check if phone number is valid
+			if (!phone.match(/^\d{10}$/)) {
+				document.getElementById("phoneError").innerHTML = "Please enter a valid phone number";
+				return false;
+			}
+			
+			// Check if email is valid
+			if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+				document.getElementById("emailError").innerHTML = "Please enter a valid email address";
+				return false;
+			}
+			
+			// Check if password is valid
+			if (!password.match(/^(?=.*\d)(?=.*[A-Z]).{8,}$/)) {
+				document.getElementById("passwordError").innerHTML = "Password must be at least 8 characters long and contain at least one numeric value and one uppercase letter";
+				return false;
+			}
+			
+			// Check if terms checkbox is checked 
+			if (!terms) {
+				document.getElementById("termsError").innerHTML = "You must agree to the terms and conditions";
+				return false;
+			}
+			
+			// Log form values to console and show success message 
+			console.log("First Name: " + firstName);
+			console.log("Last Name: " + lastName);
+			console.log("Phone: " + phone);
+			console.log("Email: " + email);
+			console.log("Password: " + password);
+			alert("Form submitted successfully");
+			return true;
+		}
+	</script>
+</html>
